@@ -145,19 +145,19 @@ const CommentSection = ({
                                       }
                                       logIn={logIn}
                                     />
-                                    </div>
+                                  </div>
                                 )
-                              }
+                              })}
+                            </div>
                           )
-                        }
-                        </div>
+                        })}
+                      </div>
                     )
                   })}
               </div>
             )
           }
         )
-            </div>
       ) : customNoComment ? (
         customNoComment()
       ) : (
