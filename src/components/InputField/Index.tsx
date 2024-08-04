@@ -58,7 +58,8 @@ const InputField = ({
             : null,
           fullName: globalStore.currentUserData.currentUserFullName,
           text: textToSend,
-          parentOfEditedCommentId: parentId
+          parentOfEditedCommentId: parentId,
+          replies: []
         }))
     )
   }
@@ -79,7 +80,8 @@ const InputField = ({
           fullName: globalStore.currentUserData.currentUserFullName,
           text: textToSend,
           parentOfRepliedCommentId: parentId,
-          comId: replyUuid
+          comId: replyUuid,
+          replies: []
         }))
     )
   }

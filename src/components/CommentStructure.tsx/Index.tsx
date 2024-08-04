@@ -15,7 +15,7 @@ interface CommentStructureProps {
     avatarUrl: string
     text: string
     userProfile?: string
-    replies?: Array<object> | undefined
+    replies?: Array<object>
   }
   editMode: boolean
   parentId?: string

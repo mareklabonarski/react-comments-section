@@ -50,7 +50,6 @@ interface CommentSectionProps {
           text: string
           userProfile?: string
         }>
-      | undefined
   }>
 }
 
