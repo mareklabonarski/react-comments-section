@@ -87,7 +87,15 @@ const CommentSection = ({
                 />
                 {i.replies &&
                   i.replies.length > 0 &&
-                  i.replies.map((j) => {
+                  i.replies.map((j: {
+                    userId: string
+                    comId: string
+                    fullName: string
+                    avatarUrl: string
+                    text: string
+                    userProfile?: string
+                    replies: Array<any>
+                  }) => {
                     return (
                       <div className='replySection' key={j.comId}>
                         <CommentStructure
@@ -107,7 +115,15 @@ const CommentSection = ({
                         />
                        {j.replies &&
                         j.replies.length > 0 &&
-                        j.replies.map((k) => {
+                        j.replies.map((k: {
+                          userId: string
+                          comId: string
+                          fullName: string
+                          avatarUrl: string
+                          text: string
+                          userProfile?: string
+                          replies: Array<any>
+                        }) => {
                           return (
                             <div className='replySection' key={k.comId}>
                               <CommentStructure
@@ -127,7 +143,15 @@ const CommentSection = ({
                               />
                              {k.replies &&
                               k.replies.length > 0 &&
-                              k.replies.map((l) => {
+                              k.replies.map((l: {
+                                userId: string
+                                comId: string
+                                fullName: string
+                                avatarUrl: string
+                                text: string
+                                userProfile?: string
+                                replies: Array<any>
+                              }) => {
                                 return (
                                   <div className='replySection' key={l.comId}>
                                     <CommentStructure
