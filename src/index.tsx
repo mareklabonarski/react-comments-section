@@ -2,6 +2,7 @@ import * as React from 'react'
 import CommentSectionComponent from './components/CommentSectionComponent/Index'
 import GlobalProvider from './context/Provider'
 import './Index.scss'
+import {Comment} from './context/Provider'
 
 interface CommentSectionProps {
   currentUser: {
@@ -34,23 +35,7 @@ interface CommentSectionProps {
   currentData?: Function
   removeEmoji?: boolean
   advancedInput?: boolean
-  commentData: Array<{
-    userId: string
-    comId: string
-    fullName: string
-    avatarUrl: string
-    text: string
-    userProfile?: string
-    replies: Array<{
-          userId: string
-          comId: string
-          fullName: string
-          avatarUrl: string
-          text: string
-          userProfile?: string
-          replies: Array<object>
-        }>
-  }>
+  commentData: Array<Comment>
 }
 
 export const CommentSection = ({
