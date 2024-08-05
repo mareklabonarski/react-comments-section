@@ -67,10 +67,14 @@ const CommentSection = ({
                 <CommentStructure
                   info={i}
                   editMode={
-                    true
+                    _.indexOf(globalStore.editArr, i.comId) === -1
+                      ? false
+                      : true
                   }
                   replyMode={
-                    true
+                    _.indexOf(globalStore.replyArr, i.comId) === -1
+                      ? false
+                      : true
                   }
                   logIn={logIn}
                 />
@@ -83,10 +87,14 @@ const CommentSection = ({
                           info={j}
                           parentId={j.comId}
                           editMode={
-                            true
+                            _.indexOf(globalStore.editArr, j.comId) === -1
+                              ? false
+                              : true
                           }
                           replyMode={
-                            true
+                            _.indexOf(globalStore.replyArr, j.comId) === -1
+                              ? false
+                              : true
                           }
                           logIn={logIn}
                         />
@@ -99,10 +107,14 @@ const CommentSection = ({
                                 info={k}
                                 parentId={k.comId}
                                 editMode={
-                                  true
+                                  _.indexOf(globalStore.editArr, j.comId) === -1
+                                    ? false
+                                    : true
                                 }
                                 replyMode={
-                                  true
+                                  _.indexOf(globalStore.replyArr, j.comId) === -1
+                                    ? false
+                                    : true
                                 }
                                 logIn={logIn}
                               />
@@ -115,10 +127,14 @@ const CommentSection = ({
                                       info={l}
                                       parentId={l.comId}
                                       editMode={
-                                        true
+                                        _.indexOf(globalStore.editArr, j.comId) === -1
+                                          ? false
+                                          : true
                                       }
                                       replyMode={
-                                        true
+                                        _.indexOf(globalStore.replyArr, j.comId) === -1
+                                          ? false
+                                          : true
                                       }
                                       logIn={logIn}
                                     />
