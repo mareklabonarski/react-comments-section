@@ -6,17 +6,10 @@ import { Menu, MenuItem } from '@szhsin/react-menu'
 import '@szhsin/react-menu/dist/core.css'
 import DeleteModal from './DeleteModal'
 import React from 'react'
+import {Comment} from '../../context/Provider'
 
 interface CommentStructureProps {
-  info: {
-    userId: string
-    comId: string
-    fullName: string
-    avatarUrl: string
-    text: string
-    userProfile?: string
-    replies?: Array<object>
-  }
+  info: Comment
   editMode: boolean
   parentId?: string
   replyMode: boolean
