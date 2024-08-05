@@ -6,7 +6,7 @@ import _ from 'lodash'
 export const GlobalContext = createContext({})
 
 
-type Comment = {
+export type Comment = {
     userId: string,
     comId: string,
     fullName: string,

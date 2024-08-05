@@ -7,6 +7,7 @@ import _ from 'lodash'
 import React from 'react'
 import LoginSection from '../LoginSection/LoginSection'
 import NoComments from './NoComments'
+import {Comment} from '../../context/Provider'
 
 interface CommentSectionProps {
   overlayStyle?: object
@@ -60,15 +61,7 @@ const CommentSection = ({
 
       {globalStore.data.length > 0 ? (
         globalStore.data.map(
-          (i: {
-            userId: string
-            comId: string
-            fullName: string
-            avatarUrl: string
-            text: string
-            userProfile?: string
-            replies: Array<any>
-          }) => {
+          (i: Comment) => {
             return (
               <div key={i.comId}>
                 <CommentStructure
@@ -83,15 +76,7 @@ const CommentSection = ({
                 />
                 {i.replies &&
                   i.replies.length > 0 &&
-                  i.replies.map((j: {
-                    userId: string
-                    comId: string
-                    fullName: string
-                    avatarUrl: string
-                    text: string
-                    userProfile?: string
-                    replies: Array<any>
-                  }) => {
+                  i.replies.map((j: Comment) => {
                     return (
                       <div className='replySection' key={j.comId}>
                         <CommentStructure
@@ -107,15 +92,7 @@ const CommentSection = ({
                         />
                        {j.replies &&
                         j.replies.length > 0 &&
-                        j.replies.map((k: {
-                          userId: string
-                          comId: string
-                          fullName: string
-                          avatarUrl: string
-                          text: string
-                          userProfile?: string
-                          replies: Array<any>
-                        }) => {
+                        j.replies.map((k: Comment) => {
                           return (
                             <div className='replySection' key={k.comId}>
                               <CommentStructure
@@ -131,15 +108,7 @@ const CommentSection = ({
                               />
                              {k.replies &&
                               k.replies.length > 0 &&
-                              k.replies.map((l: {
-                                userId: string
-                                comId: string
-                                fullName: string
-                                avatarUrl: string
-                                text: string
-                                userProfile?: string
-                                replies: Array<any>
-                              }) => {
+                              k.replies.map((l: Comment) => {
                                 return (
                                   <div className='replySection' key={l.comId}>
                                     <CommentStructure
