@@ -41,14 +41,14 @@ interface CommentSectionProps {
     avatarUrl: string
     text: string
     userProfile?: string
-    replies?:
-      | Array<{
+    replies: Array<{
           userId: string
           comId: string
           fullName: string
           avatarUrl: string
           text: string
           userProfile?: string
+          replies: Array<object>
         }>
   }>
 }

@@ -2,7 +2,19 @@ import React, { createContext, useEffect, useState } from 'react'
 // const { v4: uuidv4 } = require('uuid')
 import _ from 'lodash'
 
+
 export const GlobalContext = createContext({})
+
+
+type Comment = {
+    userId: string,
+    comId: string,
+    fullName: string,
+    avatarUrl: string,
+    text: string,
+    userProfile?: string,
+    replies: Array<Comment>
+}
 
 export const GlobalProvider = ({
   children,
@@ -42,24 +54,7 @@ export const GlobalProvider = ({
   replyInputStyle?: object
   commentsCount?: number
   removeEmoji?: boolean
-  commentData?: Array<{
-    userId: string
-    comId: string
-    fullName: string
-    avatarUrl: string
-    text: string
-    userProfile?: string
-    replies?:
-      | Array<{
-          userId: string
-          comId: string
-          fullName: string
-          avatarUrl: string
-          text: string
-          userProfile?: string
-        }>
-      | undefined
-  }>
+  commentData?: Array<Comment>
   onSubmitAction?: Function
   onDeleteAction?: Function
   onReplyAction?: Function
@@ -68,26 +63,7 @@ export const GlobalProvider = ({
   advancedInput?: boolean
 }) => {
   const [currentUserData] = useState(currentUser)
-  const [data, setData] = useState<
-    Array<{
-      userId: string
-      comId: string
-      fullName: string
-      avatarUrl: string
-      text: string
-      userProfile?: string
-      replies?:
-        | Array<{
-            userId: string
-            comId: string
-            fullName: string
-            avatarUrl: string
-            text: string
-            userProfile?: string
-          }>
-        | undefined
-    }>
-  >([])
+  const [data, setData] = useState<Comment[]>([])
   const [editArr, setEdit] = useState<string[]>([])
   const [replyArr, setReply] = useState<string[]>([])
 
@@ -150,7 +126,7 @@ export const GlobalProvider = ({
       const indexOfId = _.findIndex(copyData[indexOfParent].replies, {
         comId: comId
       })
-      copyData[indexOfParent].replies![indexOfId].text = text
+      copyData[indexOfParent].replies[indexOfId].text = text
       setData(copyData)
       handleAction(comId, true)
     } else {
@@ -161,6 +137,22 @@ export const GlobalProvider = ({
     }
   }
 
+  const findIndices = (parentId: string, indices: number[], commentData: Comment[]): number[] | undefined => {
+
+    // @ts-nocheck
+    let indexOfParent = _.findIndex(commentData, { comId: parentId })
+    if (indexOfParent === undefined) {
+      for (let i= 0; i < commentData.length; i++) {
+        let indicesOfGrandParent = findIndices(parentId, [...indices, i], commentData[i].replies)
+        if (indicesOfGrandParent !== undefined) {
+          return indicesOfGrandParent
+        }
+      }
+    }
+    return [...indices, indexOfParent]
+
+  }
+
   const onReply = (
     text: string,
     comId: string,
@@ -169,8 +161,22 @@ export const GlobalProvider = ({
   ) => {
     let copyData = [...data]
     if (parentId) {
-      const indexOfParent = _.findIndex(copyData, { comId: parentId })
-      copyData[indexOfParent].replies!.push({
+      const indicesOfParent = findIndices(parentId, [], copyData)
+      let searchComment: any = copyData
+
+      if (indicesOfParent !== undefined) {
+
+        for (let i = 0; i < indicesOfParent.length; i++) {
+          let idx = indicesOfParent[i]
+          if (i == 0) {
+            searchComment = searchComment[idx]
+          } else {
+            searchComment = searchComment.replies[idx]
+          }
+        }
+      }
+
+      searchComment.replies.push({
         userId: currentUserData!.currentUserId,
         comId: uuid,
         avatarUrl: currentUserData!.currentUserImg,
@@ -178,7 +184,8 @@ export const GlobalProvider = ({
           ? currentUserData!.currentUserProfile
           : undefined,
         fullName: currentUserData!.currentUserFullName,
-        text: text
+        text: text,
+        replies: []
       })
       setData(copyData)
       handleAction(comId, false)
@@ -186,7 +193,7 @@ export const GlobalProvider = ({
       const indexOfId = _.findIndex(copyData, {
         comId: comId
       })
-      copyData[indexOfId].replies!.push({
+      copyData[indexOfId].replies.push({
         userId: currentUserData!.currentUserId,
         comId: uuid,
         avatarUrl: currentUserData!.currentUserImg,
@@ -194,7 +201,8 @@ export const GlobalProvider = ({
           ? currentUserData!.currentUserProfile
           : undefined,
         fullName: currentUserData!.currentUserFullName,
-        text: text
+        text: text,
+        replies: []
       })
       setData(copyData)
       handleAction(comId, false)
