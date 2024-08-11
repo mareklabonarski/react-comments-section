@@ -107,12 +107,12 @@ const CommentSection = ({
                                 info={k}
                                 parentId={k.comId}
                                 editMode={
-                                  _.indexOf(globalStore.editArr, j.comId) === -1
+                                  _.indexOf(globalStore.editArr, k.comId) === -1
                                     ? false
                                     : true
                                 }
                                 replyMode={
-                                  _.indexOf(globalStore.replyArr, j.comId) === -1
+                                  _.indexOf(globalStore.replyArr, k.comId) === -1
                                     ? false
                                     : true
                                 }
@@ -127,17 +127,86 @@ const CommentSection = ({
                                       info={l}
                                       parentId={l.comId}
                                       editMode={
-                                        _.indexOf(globalStore.editArr, j.comId) === -1
+                                        _.indexOf(globalStore.editArr, l.comId) === -1
                                           ? false
                                           : true
                                       }
                                       replyMode={
-                                        _.indexOf(globalStore.replyArr, j.comId) === -1
+                                        _.indexOf(globalStore.replyArr, l.comId) === -1
                                           ? false
                                           : true
                                       }
                                       logIn={logIn}
                                     />
+                             {l.replies &&
+                              l.replies.length > 0 &&
+                              l.replies.map((m: Comment) => {
+                                return (
+                                  <div className='replySection' key={m.comId}>
+                                    <CommentStructure
+                                      info={m}
+                                      parentId={m.comId}
+                                      editMode={
+                                        _.indexOf(globalStore.editArr, m.comId) === -1
+                                          ? false
+                                          : true
+                                      }
+                                      replyMode={
+                                        _.indexOf(globalStore.replyArr, m.comId) === -1
+                                          ? false
+                                          : true
+                                      }
+                                      logIn={logIn}
+                                    />
+                             {m.replies &&
+                              m.replies.length > 0 &&
+                              m.replies.map((n: Comment) => {
+                                return (
+                                  <div className='replySection' key={n.comId}>
+                                    <CommentStructure
+                                      info={n}
+                                      parentId={n.comId}
+                                      editMode={
+                                        _.indexOf(globalStore.editArr, n.comId) === -1
+                                          ? false
+                                          : true
+                                      }
+                                      replyMode={
+                                        _.indexOf(globalStore.replyArr, n.comId) === -1
+                                          ? false
+                                          : true
+                                      }
+                                      logIn={logIn}
+                                    />
+                             {n.replies &&
+                              n.replies.length > 0 &&
+                              n.replies.map((o: Comment) => {
+                                return (
+                                  <div className='replySection' key={o.comId}>
+                                    <CommentStructure
+                                      info={o}
+                                      parentId={o.comId}
+                                      editMode={
+                                        _.indexOf(globalStore.editArr, o.comId) === -1
+                                          ? false
+                                          : true
+                                      }
+                                      replyMode={
+                                        _.indexOf(globalStore.replyArr, o.comId) === -1
+                                          ? false
+                                          : true
+                                      }
+                                      logIn={logIn}
+                                    />
+                                  </div>
+                                )
+                              })}
+                                  </div>
+                                )
+                              })}
+                                  </div>
+                                )
+                              })}
                                   </div>
                                 )
                               })}

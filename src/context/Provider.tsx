@@ -141,16 +141,17 @@ export const GlobalProvider = ({
 
     // @ts-nocheck
     let indexOfParent = _.findIndex(commentData, { comId: parentId })
-    if (indexOfParent === undefined) {
+    if (indexOfParent === -1) {
       for (let i= 0; i < commentData.length; i++) {
         let indicesOfGrandParent = findIndices(parentId, [...indices, i], commentData[i].replies)
         if (indicesOfGrandParent !== undefined) {
           return indicesOfGrandParent
         }
       }
+      return undefined
+    } else {
+      return [...indices, indexOfParent]
     }
-    return [...indices, indexOfParent]
-
   }
 
   const onReply = (
@@ -175,6 +176,9 @@ export const GlobalProvider = ({
           }
         }
       }
+
+      console.log('searchComment ' + searchComment)
+      console.log('indicesOfParent ' + indicesOfParent)
 
       searchComment.replies.push({
         userId: currentUserData!.currentUserId,
